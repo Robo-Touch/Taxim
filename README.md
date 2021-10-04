@@ -41,20 +41,23 @@ You can input a point cloud of a certain object model and define the loads on x,
 Run `python simMarkMotionField.py -obj square -dx 0.3 -dy 0.4 -dz 0.5` to visualize the resultant displacements. Results are saved under `results`.
 
 ## Operating System
-MacOS/Ubuntu. Taxim has been tested on macOS Catalina (10.15.7) and Ubuntu (18.04.1) with anaconda3.
+Taxim has been tested on macOS Catalina (10.15.7) and Ubuntu (18.04.1) with anaconda3.
 
 Configuration for MacOS:
-python 3.8.5
-numpy  1.20.1
-scipy  1.6.1
+python 3.8.5,
+numpy  1.20.1,
+scipy  1.6.1,
 opencv-python 4.5.3.56
 
 Configuration for Ubuntu:
-todo
+python 3.6.13,
+numpy 1.19.5,
+scipy 1.5.4,
+opencv-python 4.5.2.54
 
 
 ## License
-todo
+Taxim is licensed under [MIT license](LICENSE).
 
 ## Citating Taxim
 If you use Taxim in your research, please cite:
@@ -66,3 +69,5 @@ If you use Taxim in your research, please cite:
   year={2021}
 }
 ```
+
+
