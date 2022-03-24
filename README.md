@@ -1,73 +1,61 @@
-# Taxim: An Example-based Simulation Model for GelSight Tactile Sensors
-Taxim is an example-based simulator for GelSight tactile sensors and its variations. For more information of Taxim, you can check the [paper](https://arxiv.org/abs/2109.04027) or the [webpage](https://labs.ri.cmu.edu/robotouch/taxim-simulation/).
+# Taxim-Robot: An extension of Taxim simulation model 
 
-## Installation and Prerequisites
-Basic dependencies: numpy, scipy, matplotlib, cv2
+[![License: MIT](https://img.shields.io/github/license/facebookresearch/tacto)](LICENSE)
 
-To install dependencies: `pip install -r requirements.txt`
+This package is an integrated robot simulation framework with [Taxim](https://github.com/CMURoboTouch/Taxim). We show the application of this framework with grasping demos. It is adapted from Facebook's [tacto](https://github.com/facebookresearch/tacto) repo.
 
-Optional dependencies: ros with usb-cam driver (to collect the tactile images from a tactile sensor), nanogui (to annotate the raw data.)
+![demo_screwdriver](/media/demo_screwdriver.gif)
 
-To install ros usb-cam driver, please check out [here](https://github.com/ros-drivers/usb_cam).
+![demo_tomatosoupcan](/media/demo_tomatosoupcan.gif)
 
-To install nanogui, please check out [here](https://github.com/wjakob/nanogui).
+
+## Installation
+
+You can manually clone the repository and install the package using:
+
+```bash
+git clone -b taxim-robot https://github.com/CMURoboTouch/Taxim
+cd Taxim
+pip install -e .
+```
+
+To install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Content
+
+This package contain several components:
+
+1) A renderer to simulate tactile readings from a GelSight.
+2) A contact model maps normal forces to indentation depths and shear forces to shear displacements.
+2) Mesh models and urdf files for GelSight, UR5e robot, WSG50 gripper and objects.
+3) Examples of grasping.
 
 ## Usage
-If you want to customize the Taxim on your own sensor, please follow the DataCollection and Calibration to calibrate the Taxim and generate calibration files. And modify the parameters under `Basic.params` and `Basic.sensorParams` accordingly.
 
-We provide a set of calibration files and you can work with them directly. You can follow instruction of Optical Simulation and Marker Motion Field Simulation to start working with the provided examples. And feel free to change the parameters under `Basic.params`.
+### experiments
 
-## Data Collection (optional)
-1. Connect a GelSight sensor with your pc and launch the camera driver.
-2. Change the `self.gel_sub` in `gelsight.py` to your sensor camera's topic.
-3. Run `python record_Gel.py` and input the file name and number of frames to collect the data.
+```bash
+python grasp_data_demo.py -obj TomatoSoupCan
+```
 
-## Calibration (optional)
-1. Generate data pack: Run `python generateDataPack.py -data_path DATA_PATH` where `DATA_PATH` is the path to the collected raw tactile data. Hand annotate the contact center and radius for each tactile image. `dataPack.npz` will be saved under the `DATA_PATH`.
-2. Generate polynomial table: Run `python polyTableCalib.py -data_path DATA_PATH` where `DATA_PATH` is the path to the data pack. `polycalib.npz` will be saved under the `DATA_PATH`.
-3. Generate shadow table: Run `python generateShadowMasks.py -data_path DATA_PATH` where `DATA_PATH` is the path to the collected shadow calibration images. `shadowTable.npz` will be saved under the `DATA_PATH`.
-4. Generate FEM tensor maps: Export the ANSYS FEM displacement txt files and set the path in the main function. Run `python generateTensorMap.py` and `femCalib.npz` will be saved under `calibs` folder.
+```bash
+python grasp_air_demo.py -obj 044_flat_screwdriver
+```
 
-All the calibration files from a GelSight sensor have been provided under `calibs` folder.
-
-## Optical Simulation
-You can input a point cloud of a certain object model and define the pressing depth, or directly input a depth map. All the parameters in `Basic.params` are adjustable. `depth` is in millimeter unit.
-
-Run `python simOptical.py -obj square -depth 1.0` to visualize the examples. Results are saved under `results`.
-
-
-## Marker Motion Field Simulation
-You can input a point cloud of a certain object model and define the loads on x, y, z directions. `dx` and `dy` are shear loads and `dz` is normal loads, which are all in millimeter unit.
-Run `python simMarkMotionField.py -obj square -dx 0.3 -dy 0.4 -dz 0.5` to visualize the resultant displacements. Results are saved under `results`.
+`grasp_data_demo.py` is used to demonstrate grasping on objects that can stand on the table. `grasp_air_demo.py` is used to demonstrate grasping on elongated objects which will be initialized in the air.
 
 ## Operating System
-Taxim has been tested on macOS Catalina (10.15.7) and Ubuntu (18.04.1) with anaconda3.
 
-Configuration for MacOS:
-python 3.8.5,
-numpy  1.20.1,
-scipy  1.6.1,
-opencv-python 4.5.3.56
+We recommend to conduct experiments on **Ubuntu**.
 
-Configuration for Ubuntu:
-python 3.6.13,
-numpy 1.19.5,
-scipy 1.5.4,
-opencv-python 4.5.2.54
-
+For **macOS**, there exists some visualization problem between pybullet.GUI and pyrender as we know of. Please let us
+know if it can be resolved, and we will share the information at the repo!
 
 ## License
-Taxim is licensed under [MIT license](LICENSE).
-
-## Citating Taxim
-If you use Taxim in your research, please cite:
-```BibTeX
-@article{si2021taxim,
-  title={Taxim: An Example-based Simulation Model for GelSight Tactile Sensors},
-  author={Si, Zilin and Yuan, Wenzhen},
-  journal={arXiv preprint arXiv:2109.04027},
-  year={2021}
-}
-```
+This project is licensed under MIT license, as found in the [LICENSE](LICENSE) file.
 
 

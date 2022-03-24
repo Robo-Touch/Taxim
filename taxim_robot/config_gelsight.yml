@@ -1,0 +1,55 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
+sensor:
+  # By default:
+  # - Sensor (camera) is placed towards x-axis
+  # - Sensor origin is the same as .stl/.obj origin
+
+  camera:
+    - cam0:
+      position: [ -0.0088, -0.00025, 0.1225 ] # Camera position
+      orientation: [ 90, -90, -90 ] # Euler angles, "xyz", in degrees; e.g. [0, 0, 0]: towards negative z-axis; [90, 0, -90]: towards x-axis
+      znear: 0.001 # Distance to the near clipping plane, in meters
+      lightIDList: [ 0, 1, 2 ] # Select light ID list for rendering (OpenGL has max limit of 8 lights)
+      fx: 1000
+      fy: 1000
+      cx: 303.0542
+      cy: 210.0128
+
+  gel:
+    mesh: 'gelsight_data/gelpad_mesh_v6.stl'
+
+  lights:
+    # Light position & properties.
+
+    origin: [0.019, 0, 0.119 ] # center of the light plane, in meters
+
+    # Light position can be expressed in:
+    # - polar coordinates: r and theta. (in y-z plane), and x coordinate of the plane
+    # - cartesian coordinates: xyz
+    # Only one of the xyz or rtheta is required.
+    polar: True # True: apply polar coordinates; False: apply cartesian coordinates;
+    xyz: # cartesian coordinates
+      coords: [ [ 0, 0.01732, 0.01 ], [ 0, -0.01732, 0.01 ], [ 0, 0, -0.02 ] ]
+    xrtheta: # polar coordinates in y-z plane
+      xs: [ 0, 0, 0 ] # x coordinate of the y-z plane
+      rs: [ 0.02, 0.02, 0.02 ] # r in polar coordinates
+      thetas: [ 0, -120, -240 ] # theta in polar coordinates, in degrees
+
+    colors: [ [ 0, 0, 1 ], [ 0, 1, 0 ], [ 1, 0, 0 ] ] # R G B color
+    intensities: [ 1, 1, 1 ] # light intensity
+
+  noise: # Gaussian noise calibrated on output [0, 255]
+    color:
+      mean: 0
+      std: 7
+
+  force:
+    enable: True # flag for enable force feedback. When enabled, the larger normal force is, the closer object is adjusted to the sensor.
+    #    range_force: [0, 1.0, 1.2, 2.5, 20] # dynamic range of forces used to simulate the elastomer deformation
+    #    max_deformation: [0, 0.00001, 0.0003, 0.00045, 0.0006] # max pose depth adjustment, in meters
+    range_force: [ 0, 0.014847, 0.04225400000000001, 0.12440800000000002, 0.225166, 0.344907, 0.49322900000000003, 0.638253, 0.7921980000000001, 0.9550759999999999, 1.120841, 1.3054730000000003, 1.4927399999999997, 1.6858360000000001, 1.8751689999999999, 2.0829999999999997, 2.2820110000000002, 2.500378, 2.7097529999999996, 2.897612000000001, 3.1210290000000005, 3.3306510000000005, 3.5932609999999996, 3.842961, 4.140176, 4.409171000000001, 4.679557, 4.995602000000001, 5.28272, 5.608601000000001, 5.942314 ] # dynamic range of forces used to simulate the elastomer deformation
+    max_deformation: [ 0, 0.0, 2e-05, 4e-05, 6.000000000000001e-05, 8e-05, 0.0001, 0.00012000000000000002, 0.00014000000000000001, 0.00016, 0.00017999999999999998, 0.0002, 0.00022, 0.00024000000000000003, 0.00026, 0.00028000000000000003, 0.00030000000000000003, 0.00032, 0.00034, 0.00035999999999999997, 0.00038, 0.0004, 0.00042000000000000007, 0.00044, 0.00046000000000000007, 0.00048000000000000007, 0.0005, 0.00052, 0.00054, 0.0005600000000000001, 0.00058 ] # max pose depth adjustment, in meters
