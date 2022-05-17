@@ -1,0 +1,13 @@
+numpy
+pybullet
+matplotlib
+opencv-python
+omegaconf<2.2.0
+pyrender
+hydra-core
+urdfpy
+numpy-stl
+scipy
+deepdish
+pyopengl@3.1.0
+pyglet

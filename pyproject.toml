@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "taxim"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.9"
+numpy = "^1.22.3"
+pybullet = "^3.2.4"
+matplotlib = "^3.5.2"
+opencv-python = "^4.5.5"
+omegaconf = "<2.2.0"
+pyrender = "^0.1.45"
+hydra-core = "^1.1.2"
+urdfpy = "^0.0.22"
+numpy-stl = "^2.17.1"
+scipy = "^1.8.0"
+deepdish = "^0.3.7"
+PyOpenGL = "3.1.0"
+pyglet = "^1.5.24"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
