@@ -2,3 +2,9 @@
 data/
 logs/
 __pycache__
+
+*.egg-info/
+
+# since we already have requirements.txt
+pyproject.toml
+poetry.lock
