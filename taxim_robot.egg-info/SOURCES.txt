@@ -1,9 +1,11 @@
 .gitignore
 LICENSE
 README.md
+poetry.lock
 pyproject.toml
 requirements.txt
 setup.py
+temp.txt
 experiments/grasp_air_demo.py
 experiments/grasp_air_video.py
 experiments/grasp_data_demo.py
