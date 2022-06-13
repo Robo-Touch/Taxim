@@ -1,4 +1,4 @@
-# project_object_folder
+# Taxim for Data Collection
 this is pyrender+taxim optical simulation for large-scale data collection.
 
 ## Setup environment:
