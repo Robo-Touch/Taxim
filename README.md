@@ -1,73 +1,31 @@
-# Taxim: An Example-based Simulation Model for GelSight Tactile Sensors
-Taxim is an example-based simulator for GelSight tactile sensors and its variations. For more information of Taxim, you can check the [paper](https://arxiv.org/abs/2109.04027) or the [webpage](https://labs.ri.cmu.edu/robotouch/taxim-simulation/).
+# project_object_folder
+this is pyrender+taxim optical simulation for large-scale data collection.
 
-## Installation and Prerequisites
-Basic dependencies: numpy, scipy, matplotlib, cv2
-
-To install dependencies: `pip install -r requirements.txt`
-
-Optional dependencies: ros with usb-cam driver (to collect the tactile images from a tactile sensor), nanogui (to annotate the raw data.)
-
-To install ros usb-cam driver, please check out [here](https://github.com/ros-drivers/usb_cam).
-
-To install nanogui, please check out [here](https://github.com/wjakob/nanogui).
-
-## Usage
-If you want to customize the Taxim on your own sensor, please follow the DataCollection and Calibration to calibrate the Taxim and generate calibration files. And modify the parameters under `Basic.params` and `Basic.sensorParams` accordingly.
-
-We provide a set of calibration files and you can work with them directly. You can follow instruction of Optical Simulation and Marker Motion Field Simulation to start working with the provided examples. And feel free to change the parameters under `Basic.params`.
-
-## Data Collection (optional)
-1. Connect a GelSight sensor with your pc and launch the camera driver.
-2. Change the `self.gel_sub` in `gelsight.py` to your sensor camera's topic.
-3. Run `python record_Gel.py` and input the file name and number of frames to collect the data.
-
-## Calibration (optional)
-1. Generate data pack: Run `python generateDataPack.py -data_path DATA_PATH` where `DATA_PATH` is the path to the collected raw tactile data. Hand annotate the contact center and radius for each tactile image. `dataPack.npz` will be saved under the `DATA_PATH`.
-2. Generate polynomial table: Run `python polyTableCalib.py -data_path DATA_PATH` where `DATA_PATH` is the path to the data pack. `polycalib.npz` will be saved under the `DATA_PATH`.
-3. Generate shadow table: Run `python generateShadowMasks.py -data_path DATA_PATH` where `DATA_PATH` is the path to the collected shadow calibration images. `shadowTable.npz` will be saved under the `DATA_PATH`.
-4. Generate FEM tensor maps: Export the ANSYS FEM displacement txt files and set the path in the main function. Run `python generateTensorMap.py` and `femCalib.npz` will be saved under `calibs` folder.
-
-All the calibration files from a GelSight sensor have been provided under `calibs` folder.
-
-## Optical Simulation
-You can input a point cloud of a certain object model and define the pressing depth, or directly input a depth map. All the parameters in `Basic.params` are adjustable. `depth` is in millimeter unit.
-
-Run `python simOptical.py -obj square -depth 1.0` to visualize the examples. Results are saved under `results`.
+## Setup environment:
+`pip install -r requirements.txt`
+`pip install -e .`
 
 
-## Marker Motion Field Simulation
-You can input a point cloud of a certain object model and define the loads on x, y, z directions. `dx` and `dy` are shear loads and `dz` is normal loads, which are all in millimeter unit.
-Run `python simMarkMotionField.py -obj square -dx 0.3 -dy 0.4 -dz 0.5` to visualize the resultant displacements. Results are saved under `results`.
+## Usage: how to generate data
+- `example/single_render.py` runs a single case and save the generated contact mask/height map/tactile image. Here are several parameters to adjust:
+    - `obj_name`: object to load. You may also want to change the path to the data folder
+    - `press_depth`: pressing depth in meter unit
+    - `shear_range`: the range of orientation (a cone) along the normal direction
+    - `vertex_idx`: vertex index on the object
+    - `save_path`: save generated data
+    - `live`: online/offline rendering. Online rendering can be used for debugging. Offline for data generation.
 
-## Operating System
-Taxim has been tested on macOS Catalina (10.15.7) and Ubuntu (18.04.1) with anaconda3.
+- `example/batch_render.py` runs a batch of rendering and save the generated depth map/contact mask/height map/tactile images. Here are several parameters to adjust:
+    - `obj_name`: object to load. You may also want to change the path to the data folder
+    - `max_depth`: maximum pressing depth in meter unit
+    - `min_depth`: minimum pressing depth in meter unit
+    - `num_depths`: number of random pressing depths
+    - `shear_range`: the range of orientation (a cone) along the normal direction
+    - `num_angles`: number of random angles
+    - `num_vertices`: number of random vertices
+    - `save_path`: save generated data
 
-Configuration for MacOS:
-python 3.8.5,
-numpy  1.20.1,
-scipy  1.6.1,
-opencv-python 4.5.3.56
-
-Configuration for Ubuntu:
-python 3.6.13,
-numpy 1.19.5,
-scipy 1.5.4,
-opencv-python 4.5.2.54
-
+All the calibration files are under `calibs`.
 
 ## License
-Taxim is licensed under [MIT license](LICENSE).
-
-## Citating Taxim
-If you use Taxim in your research, please cite:
-```BibTeX
-@article{si2021taxim,
-  title={Taxim: An Example-based Simulation Model for GelSight Tactile Sensors},
-  author={Si, Zilin and Yuan, Wenzhen},
-  journal={arXiv preprint arXiv:2109.04027},
-  year={2021}
-}
-```
-
-
+This project is licensed under MIT license, as found in the [LICENSE](LICENSE) file.
