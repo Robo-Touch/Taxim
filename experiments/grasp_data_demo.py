@@ -1,5 +1,3 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
-
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
@@ -105,7 +103,7 @@ if __name__ == "__main__":
 
     nbJoint = pb.getNumJoints(robotID)
 
-    # Add object to pybullet and tacto simulator
+    # Add object to simulator
     urdfObj, obj_mass, obj_height, force_range, deformation, _ = getObjInfo(args.obj)
     finger_height = 0.17
     ori = [0, np.pi / 2, 0]

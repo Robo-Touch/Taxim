@@ -1,5 +1,3 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
-
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
@@ -104,7 +102,7 @@ class Sensor:
 
     def add_camera(self, obj_id, link_ids):
         """
-        Add camera into tacto
+        Add camera
 
         self.cameras format: {
             "cam0": Link,
@@ -177,8 +175,8 @@ class Sensor:
 
     def loadURDF(self, *args, **kwargs):
         """
-        Load the object urdf to pybullet and tacto simulator.
-        The tacto simulator will create the same scene in OpenGL for faster rendering
+        Load the object urdf to pybullet and tactile simulator.
+        The tactile simulator will create the same scene in OpenGL for faster rendering
         """
         urdf_fn = args[0]
         globalScaling = kwargs.get("globalScaling", 1.0)
@@ -188,7 +186,7 @@ class Sensor:
         # Add to pybullet
         obj_id = p.loadURDF(physicsClientId=self.cid, *args, **kwargs)
 
-        # Add to tacto simulator scene
+        # Add to tactile simulator scene
         self.add_object(urdf_fn, obj_id, globalScaling=globalScaling, force_range=force_range, deformation=deformation)
 
         return obj_id
@@ -198,7 +196,7 @@ class Sensor:
 
     def _update_object_poses(self):
         """
-        Update the pose of each objects registered in tacto simulator
+        Update the pose of each objects registered in tactile simulator
         """
         for obj_name in self.objects.keys():
             self.object_poses[obj_name] = self.objects[obj_name].get_pose()
@@ -252,7 +250,7 @@ class Sensor:
 
     def render(self):
         """
-        Render tacto images from each camera's view.
+        Render tactile images from each camera's view.
         """
 
         self._update_object_poses()
